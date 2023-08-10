@@ -16,7 +16,6 @@ public class file {
 		var possible_file_reader = Try.of(() -> Files.newBufferedReader(filepath));
 		var possible_csv_reader =
 						possible_file_reader.flatMap(file_reader -> Try.of(() -> new CSVReader(file_reader)));
-		var possible_csv_list =  possible_csv_reader.flatMap(csv_reader -> Try.of(() -> List.ofAll(csv_reader.readAll())));
-		return possible_csv_list;
+		return possible_csv_reader.flatMap(csv_reader -> Try.of(() -> List.ofAll(csv_reader.readAll())));
 	}
 }

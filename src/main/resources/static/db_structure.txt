@@ -1,0 +1,16 @@
+csv
+people -> movie_id, name, role
+movies -> id, title, year
+
+h2
+movies -> id, title, year
+people -> id, name
+roles_in_movies -> people id, movie id, role
+
+xbox ->
+Country,StudioNetwork,MediaId,Title,
+OriginalReleaseDate,MediaType,SeriesMediaId,
+SeasonMediaId,SeriesTitle,SeasonNumber,
+EpisodeNumber,LicenseType,ActualRetailPrice,
+OfferStartDate,OfferEndDate,Actors,
+Director,XboxLiveURL
