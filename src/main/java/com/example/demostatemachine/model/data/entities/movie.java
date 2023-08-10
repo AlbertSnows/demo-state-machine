@@ -8,13 +8,19 @@ public class movie {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private final Long id;
 
 	@Column(nullable = false, unique = true)
-	private String title;
+	private final String title;
 
 	@Column(nullable = false)
-	private int year;
+	private final int year;
+
+	public movie(Long id, String title, int year) {
+		this.id = id;
+		this.title = title;
+		this.year = year;
+	}
 
 	Long get_id() {
 		return id;

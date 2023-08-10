@@ -8,10 +8,15 @@ public class person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private final Long id;
 
 	@Column(nullable = false, unique = true)
-	private String name;
+	private final String name;
+
+	public person(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
 	Long get_id() {
 		return id;

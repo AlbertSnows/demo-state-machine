@@ -21,6 +21,13 @@ public class role_in_movie {
 	@Column(nullable = false)
 	private String role;
 
+	public role_in_movie(Long id, com.example.demostatemachine.model.data.entities.person person, com.example.demostatemachine.model.data.entities.movie movie, String role) {
+		this.id = id;
+		this.person = person;
+		this.movie = movie;
+		this.role = role;
+	}
+
 	Long get_id() {
 		return id;
 	}

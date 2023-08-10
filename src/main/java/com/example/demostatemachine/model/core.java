@@ -25,6 +25,7 @@ public class core {
 	}
 
 	public static void build_movie_database() {
+		var movie_repo = new com.example.demostatemachine.model.data.repositories.movie();
 		var x = 1;
 	}
 
