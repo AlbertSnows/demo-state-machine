@@ -1,4 +1,4 @@
-package com.example.demostatemachine.model.data;
+package com.example.demostatemachine.model.data.entities;
 
 import jakarta.persistence.*;
 
@@ -32,5 +32,7 @@ public class role_in_movie {
 	movie get_movie() {
 		return movie;
 	}
+
+	String get_role() { return role; }
 }
 

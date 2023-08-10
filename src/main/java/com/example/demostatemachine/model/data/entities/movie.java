@@ -1,4 +1,4 @@
-package com.example.demostatemachine.model.data;
+package com.example.demostatemachine.model.data.entities;
 
 import jakarta.persistence.*;
 
