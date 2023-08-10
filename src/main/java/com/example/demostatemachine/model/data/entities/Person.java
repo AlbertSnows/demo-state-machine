@@ -4,25 +4,24 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "people")
-public class person {
+public class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private final Long id;
+	private Long id;
 
 	@Column(nullable = false, unique = true)
 	private final String name;
 
-	public person(Long id, String name) {
-		this.id = id;
+	public Person(String name) {
 		this.name = name;
 	}
 
-	Long get_id() {
+	public Long get_id() {
 		return id;
 	}
 
-	String get_name() {
+	public String get_name() {
 		return name;
 	}
 }

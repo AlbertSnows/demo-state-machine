@@ -1,26 +1,34 @@
 package com.example.demostatemachine.model.importing;
 
-import com.example.demostatemachine.model.data.repositories.movie;
-import com.example.demostatemachine.model.data.repositories.person;
-import com.example.demostatemachine.model.data.repositories.role_in_movie;
+import com.example.demostatemachine.model.data.repositories.Movie;
+import com.example.demostatemachine.model.data.repositories.Person;
+import com.example.demostatemachine.model.data.repositories.RoleInMovie;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 
-import java.util.List;
-
 public class hydrator implements CommandLineRunner {
-	private final person person_repo;
-	private final movie movie_repo;
-	private final role_in_movie role_in_movie_repo;
+	private static final Logger logger = LoggerFactory.getLogger(com.example.demostatemachine.model.importing.hydrator.class);
+	private final Person person_repo;
+	private final Movie movie_repo;
+	private final RoleInMovie roleInMovie_repo;
 
-	public hydrator(person person_repo_init, movie movie_repo_init, role_in_movie role_in_movie_repo_init) {
+	public hydrator(Person person_repo_init, Movie movie_repo_init, RoleInMovie roleInMovie_repo_init) {
 		this.person_repo = person_repo_init;
 		this.movie_repo = movie_repo_init;
-		this.role_in_movie_repo = role_in_movie_repo_init;
+		this.roleInMovie_repo = roleInMovie_repo_init;
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		var person1 = new com.example.demostatemachine.model.data.entities.person();
-		person_repo.saveAll(List.of(person1, person2));
+		var entity_lists = core.build_movie_database();
+		if(!(entity_lists.isValid())) {
+			logger.error("Error trying to build database, no data could be imported.");
+		} else {
+			var entity_data = entity_lists.get();
+			person_repo.saveAll(entity_data.people());
+			movie_repo.saveAll(entity_data.movies());
+			roleInMovie_repo.saveAll(entity_data.roles());
+		}
 	}
 }

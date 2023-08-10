@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "role_in_movie")
-public class role_in_movie {
+public class RoleInMovie {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,17 +12,16 @@ public class role_in_movie {
 
 	@ManyToOne
 	@JoinColumn(name = "people_id", nullable = false)
-	private person person;
+	private final Person person;
 
 	@ManyToOne
 	@JoinColumn(name = "movie_id", nullable = false)
-	private movie movie;
+	private final Movie movie;
 
 	@Column(nullable = false)
-	private String role;
+	private final String role;
 
-	public role_in_movie(Long id, com.example.demostatemachine.model.data.entities.person person, com.example.demostatemachine.model.data.entities.movie movie, String role) {
-		this.id = id;
+	public RoleInMovie(Person person, Movie movie, String role) {
 		this.person = person;
 		this.movie = movie;
 		this.role = role;
@@ -32,11 +31,11 @@ public class role_in_movie {
 		return id;
 	}
 
-	person get_person() {
+	Person get_person() {
 		return person;
 	}
 
-	movie get_movie() {
+	Movie get_movie() {
 		return movie;
 	}
 

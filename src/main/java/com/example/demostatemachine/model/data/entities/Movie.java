@@ -4,25 +4,24 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "movie")
-public class movie {
+public class Movie {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private final Long id;
 
 	@Column(nullable = false, unique = true)
 	private final String title;
 
 	@Column(nullable = false)
-	private final int year;
+	private final int releaseYear;
 
-	public movie(Long id, String title, int year) {
+	public Movie(Long id, String title, int releaseYear) {
 		this.id = id;
 		this.title = title;
-		this.year = year;
+		this.releaseYear = releaseYear;
 	}
 
-	Long get_id() {
+	public Long get_id() {
 		return id;
 	}
 
@@ -30,7 +29,7 @@ public class movie {
 		return title;
 	}
 
-	int get_year() {
-		return year;
+	public int get_release_year() {
+		return releaseYear;
 	}
 }
