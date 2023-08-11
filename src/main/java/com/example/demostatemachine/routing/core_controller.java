@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.example.demostatemachine.model.data.repositories.Movie;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.vavr.collection.HashMap;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -39,16 +39,16 @@ public class core_controller {
 	}
 
 	@PostMapping("/title")
-	public ResponseEntity<HashMap<String, Serializable>> get_movie_title(@RequestBody @NotNull Map<String, String> payload) {
+	public ResponseEntity<Map<String, Serializable>> get_movie_title(@RequestBody @NotNull Map<String, String> payload) {
 		var title = payload.get("title");
 		PolicyFactory policy = Sanitizers.FORMATTING;
 		var safe_title = policy.sanitize(title);
 		var movie = movie_repo.findByTitle(safe_title).stream().findFirst();
 		if(movie.isEmpty()) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Could not find movie with that title."));
 		}
 		var mapper = new ObjectMapper();
 		var movie_data = mapper.convertValue(movie.get(), Map.class);
-		return ResponseEntity.ok(HashMap.of("title", safe_title, "year", movie.get().get_release_year()));
+		return ResponseEntity.ok(Map.of("title", safe_title, "year", movie.get().get_release_year()));
 	}
 }
