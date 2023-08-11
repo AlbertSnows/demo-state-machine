@@ -1,7 +1,9 @@
 package com.example.demostatemachine.model.data.entities;
 
 import jakarta.persistence.*;
+import org.jetbrains.annotations.Contract;
 
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "movie")
 public class Movie {
@@ -9,12 +11,13 @@ public class Movie {
 	@Id
 	private Long id;
 
-	@Column(nullable = false, unique = false)
+	@Column(nullable = false)
 	private String title;
 
-	@Column(nullable = true)
+	@Column()
 	private int releaseYear;
 
+	@Contract(pure = true)
 	public Movie() { }
 
 	public Movie(Long id, String title, int releaseYear) {

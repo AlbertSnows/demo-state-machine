@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+@SuppressWarnings("unused")
 @Component
 public class hydrator implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(com.example.demostatemachine.model.importing.hydrator.class);
@@ -22,7 +23,7 @@ public class hydrator implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 		logger.info("Ingesting csv's...");
 		var entity_lists = core.build_movie_database();
 		logger.info("Prepping for seeding...");
