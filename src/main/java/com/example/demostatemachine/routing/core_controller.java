@@ -18,8 +18,12 @@ import org.owasp.html.Sanitizers;
 @Controller
 public class core_controller {
 
-	@Autowired
 	private Movie movie_repo;
+
+	@Autowired
+	public core_controller(Movie movie_repo_init) {
+		this.movie_repo = movie_repo_init;
+	}
 
 	@RequestMapping("/")
 	public String default_route() {

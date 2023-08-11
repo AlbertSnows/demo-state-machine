@@ -7,13 +7,15 @@ import jakarta.persistence.*;
 public class Movie {
 
 	@Id
-	private final Long id;
+	private Long id;
 
-	@Column(nullable = false, unique = true)
-	private final String title;
+	@Column(nullable = false, unique = false)
+	private String title;
 
-	@Column(nullable = false)
-	private final int releaseYear;
+	@Column(nullable = true)
+	private int releaseYear;
+
+	public Movie() { }
 
 	public Movie(Long id, String title, int releaseYear) {
 		this.id = id;

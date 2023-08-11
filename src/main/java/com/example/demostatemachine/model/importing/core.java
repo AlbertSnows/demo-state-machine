@@ -8,12 +8,14 @@ import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.control.Try;
 import io.vavr.control.Validation;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class core {
 	public record EntityHolder(List<com.example.demostatemachine.model.data.entities.Person> people, List<com.example.demostatemachine.model.data.entities.Movie> movies, List<com.example.demostatemachine.model.data.entities.RoleInMovie> roles) {}
@@ -38,32 +40,43 @@ public class core {
 		var xbox_path = Paths.get("src/main/resources/data/xbox_feed.csv");
 		return import_csv_files(HashMap.of(
 						"people", actors_path,
-						"movies", movies_path,
-						"xbox", xbox_path));
+						"movies", movies_path
+//						,
+//						"xbox", xbox_path
+		));
 	}
 
 	public static @NotNull EntityHolder build_table_entities(@NotNull HashMap<String, List<String[]>> csv_data) {
 		var movie_data = csv_data.get("movies");
-		var movie_entities = movie_data.get().tail().foldLeft(
-						List.<Movie>empty(),
-						(list, movie_row) -> list.append(new Movie(Long.valueOf(movie_row[0]), movie_row[1], Integer.parseInt(movie_row[2]))));
+		var movie_entities = List.ofAll(movie_data.get().tail().foldLeft(
+						new ArrayList<Movie>(),
+						(list, movie_row) -> {
+							list.add(new Movie(Long.valueOf(movie_row[0]), movie_row[1], NumberUtils.toInt(movie_row[2], 0)));
+							return list;
+						}));
 		var people_data = csv_data.get("people");
-		var people_entities = people_data.get().tail().foldLeft(
-						List.<Person>empty(),
-						(list, people_row) -> list.append(new Person(people_row[1])));
+		var people_entities = List.ofAll(people_data.get().tail().foldLeft(
+						new ArrayList<Person>(),
+						(list, people_row) -> {
+							list.add(new Person(people_row[1]));
+							return  list;
+						}));
 		var name_to_entity = people_entities.foldLeft(
 						HashMap.<String, Person>empty(),
 						(map, person) -> map.put(person.getName(), person));
 		var movie_id_to_entity = movie_entities.foldLeft(
 						HashMap.<Long, Movie>empty(),
 						(map, movie) -> map.put(movie.getId(), movie));
-		var role_entities = people_data.get().foldLeft(
-						List.<RoleInMovie>empty(),
+		var role_entities = List.ofAll(people_data.get().tail().foldLeft(
+						new ArrayList<RoleInMovie>(),
 						(list, people_row) -> {
-							var person = name_to_entity.get(people_row[1]).get();
-							var movie = movie_id_to_entity.get(Long.valueOf(people_row[0])).get();
-							return list.append(new RoleInMovie(person, movie, people_row[2]));
-						});
+							var person = name_to_entity.get(people_row[1]);
+							var movie = movie_id_to_entity.get(Long.valueOf(people_row[0]));
+							if(!movie.isEmpty()) {
+								list.add(new RoleInMovie(person.get(), movie.get(), people_row[2]));
+							}
+							return list;
+						}));
 		return new EntityHolder(people_entities, movie_entities, role_entities);
 	}
 

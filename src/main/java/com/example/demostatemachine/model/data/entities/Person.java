@@ -10,7 +10,7 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = false)
 	private final String name;
 
 	public Person(String name) {
