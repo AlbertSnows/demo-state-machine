@@ -43,12 +43,13 @@ public class core_controller {
 		var title = payload.get("title");
 		PolicyFactory policy = Sanitizers.FORMATTING;
 		var safe_title = policy.sanitize(title);
-		var movie = movie_repo.findByTitle(safe_title).stream().findFirst();
+		var movies = movie_repo.findByTitle(safe_title);
+		var movie = movies.stream().findFirst();
 		if(movie.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Could not find movie with that title."));
 		}
 		var mapper = new ObjectMapper();
 		var movie_data = mapper.convertValue(movie.get(), Map.class);
-		return ResponseEntity.ok(Map.of("title", safe_title, "year", movie.get().get_release_year()));
+		return ResponseEntity.ok(Map.of("title", safe_title, "year", movie.get().getReleaseYear()));
 	}
 }

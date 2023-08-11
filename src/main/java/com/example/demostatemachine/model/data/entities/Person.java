@@ -17,11 +17,11 @@ public class Person {
 		this.name = name;
 	}
 
-	public Long get_id() {
+	public Long getId() {
 		return id;
 	}
 
-	public String get_name() {
+	public String getName() {
 		return name;
 	}
 }

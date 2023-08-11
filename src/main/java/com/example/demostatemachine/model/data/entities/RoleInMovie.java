@@ -27,18 +27,18 @@ public class RoleInMovie {
 		this.role = role;
 	}
 
-	Long get_id() {
+	Long getId() {
 		return id;
 	}
 
-	Person get_person() {
+	Person getPerson() {
 		return person;
 	}
 
-	Movie get_movie() {
+	Movie getMovie() {
 		return movie;
 	}
 
-	String get_role() { return role; }
+	String getRole() { return role; }
 }
 

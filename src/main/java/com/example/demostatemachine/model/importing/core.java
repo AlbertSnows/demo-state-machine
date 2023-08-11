@@ -53,10 +53,10 @@ public class core {
 						(list, people_row) -> list.append(new Person(people_row[1])));
 		var name_to_entity = people_entities.foldLeft(
 						HashMap.<String, Person>empty(),
-						(map, person) -> map.put(person.get_name(), person));
+						(map, person) -> map.put(person.getName(), person));
 		var movie_id_to_entity = movie_entities.foldLeft(
 						HashMap.<Long, Movie>empty(),
-						(map, movie) -> map.put(movie.get_id(), movie));
+						(map, movie) -> map.put(movie.getId(), movie));
 		var role_entities = people_data.get().foldLeft(
 						List.<RoleInMovie>empty(),
 						(list, people_row) -> {

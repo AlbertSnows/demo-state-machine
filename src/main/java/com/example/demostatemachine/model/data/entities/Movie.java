@@ -21,15 +21,15 @@ public class Movie {
 		this.releaseYear = releaseYear;
 	}
 
-	public Long get_id() {
+	public Long getId() {
 		return id;
 	}
 
-	String get_title() {
+	String getTitle() {
 		return title;
 	}
 
-	public int get_release_year() {
+	public int getReleaseYear() {
 		return releaseYear;
 	}
 }
