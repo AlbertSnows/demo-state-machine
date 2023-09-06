@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SmokeTest {
 
 	@Autowired
-	private core_controller controller;
+	private Core controller;
 
 	@Test
 	void contextLoads() throws Exception {

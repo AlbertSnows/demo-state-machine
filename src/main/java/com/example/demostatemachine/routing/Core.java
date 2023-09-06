@@ -7,6 +7,7 @@ import com.example.demostatemachine.model.data.repositories.Movie;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,13 +17,16 @@ import org.owasp.html.Sanitizers;
 
 @SuppressWarnings("unused")
 @Controller
-public class core_controller {
+public class Core {
 
-	private Movie movie_repo;
+	private final Movie movieRepo;
+	private final ErrorAttributes errorAttributes;
 
 	@Autowired
-	public core_controller(Movie movie_repo_init) {
-		this.movie_repo = movie_repo_init;
+	public Core(Movie movie_repo_init, ErrorAttributes errorAttributes
+	) {
+		this.movieRepo = movie_repo_init;
+		this.errorAttributes = errorAttributes;
 	}
 
 	@RequestMapping("/")
@@ -47,7 +51,7 @@ public class core_controller {
 		var title = payload.get("title");
 		PolicyFactory policy = Sanitizers.FORMATTING;
 		var safe_title = policy.sanitize(title);
-		var movies = movie_repo.findByTitle(safe_title);
+		var movies = movieRepo.findByTitle(safe_title);
 		var movie = movies.stream().findFirst();
 		if(movie.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Could not find movie with that title."));
