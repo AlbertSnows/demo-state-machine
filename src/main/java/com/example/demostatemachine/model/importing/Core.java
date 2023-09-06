@@ -17,12 +17,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class core {
+public class Core {
 	public record EntityHolder(List<com.example.demostatemachine.model.data.entities.Person> people, List<com.example.demostatemachine.model.data.entities.Movie> movies, List<com.example.demostatemachine.model.data.entities.RoleInMovie> roles) {}
 
-	private static final Logger logger = LoggerFactory.getLogger(com.example.demostatemachine.model.importing.core.class);
+	private static final Logger logger = LoggerFactory.getLogger(Core.class);
 
-	private core() {
+	private Core() {
 		throw new IllegalStateException("Utility class");
 	}
 
@@ -31,7 +31,7 @@ public class core {
 	}
 
 	public static HashMap<String, Try<List<String[]>>> import_csv_files(@NotNull HashMap<String, Path> csv_path_map) {
-		return csv_path_map.mapValues(core::import_csv_data);
+		return csv_path_map.mapValues(Core::import_csv_data);
 	}
 
 	public static HashMap<String, Try<List<String[]>>> import_csv_map() {
@@ -81,7 +81,7 @@ public class core {
 	}
 
 	public static Validation<String, HashMap<String, List<String[]>>> load_in_csv_data() {
-		var csv_data_map = com.example.demostatemachine.model.importing.core.import_csv_map();
+		var csv_data_map = Core.import_csv_map();
 		var validation_result = validation.validate_if_csv_files_were_read_correctly(csv_data_map);
 		if(!(validation_result.isValid())) {
 			var invalid_data = validation_result.getError();

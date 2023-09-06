@@ -27,8 +27,10 @@ public class Errors implements ErrorController {
 	@RequestMapping("/error")
 	public ResponseEntity<Map<String, Object>> handleError(WebRequest webRequest) {
 		Map<String, Object> errorAttributesMap = errorAttributes.getErrorAttributes(
-						webRequest, ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
-		errorAttributesMap.put("message", "This is a intentional JSON error response. If the HTTP status is 400, double check your request.");
+						webRequest, ErrorAttributeOptions.defaults());
+		errorAttributesMap.put("message", "This is a intentional JSON error response. " +
+						"If the HTTP status is 400, double check your request. " +
+						"This response should also include an brief error description that may help ");
 		HttpStatus status = HttpStatus.valueOf((int) errorAttributesMap.get("status"));
 		return new ResponseEntity<>(errorAttributesMap, status);
 	}

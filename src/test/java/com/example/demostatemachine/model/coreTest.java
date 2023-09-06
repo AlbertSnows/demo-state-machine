@@ -2,8 +2,8 @@ package com.example.demostatemachine.model;
 
 import org.junit.jupiter.api.Test;
 
-import static com.example.demostatemachine.model.importing.core.build_movie_database;
-import static com.example.demostatemachine.model.importing.core.load_in_csv_data;
+import static com.example.demostatemachine.model.importing.Core.build_movie_database;
+import static com.example.demostatemachine.model.importing.Core.load_in_csv_data;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.springframework.boot.test.context.SpringBootTest;
 

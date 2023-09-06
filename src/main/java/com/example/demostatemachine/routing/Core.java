@@ -7,7 +7,6 @@ import com.example.demostatemachine.model.data.repositories.Movie;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,13 +19,17 @@ import org.owasp.html.Sanitizers;
 public class Core {
 
 	private final Movie movieRepo;
-	private final ErrorAttributes errorAttributes;
+	private final com.example.demostatemachine.model.mutations.Core coreMutations;
+//	private final ErrorAttributes errorAttributes;
 
 	@Autowired
-	public Core(Movie movie_repo_init, ErrorAttributes errorAttributes
+	public Core(Movie movie_repo_init
+              , com.example.demostatemachine.model.mutations.Core coreMutations
+//					, ErrorAttributes errorAttributes
 	) {
 		this.movieRepo = movie_repo_init;
-		this.errorAttributes = errorAttributes;
+		this.coreMutations = coreMutations;
+//		this.errorAttributes = errorAttributes;
 	}
 
 	@RequestMapping("/")
@@ -44,6 +47,11 @@ public class Core {
 	{
 		payload.put("response", "ok");
 		return ResponseEntity.ok(payload);
+	}
+
+	@PostMapping("/database/seed")
+	public void seedDatabase() {
+		coreMutations.trySeedingDatabase();
 	}
 
 	@PostMapping("/title")
