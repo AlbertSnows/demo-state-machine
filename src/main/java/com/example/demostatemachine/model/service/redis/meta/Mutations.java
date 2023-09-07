@@ -1,15 +1,15 @@
-package com.example.demostatemachine.model.mutations.meta;
+package com.example.demostatemachine.model.service.redis.meta;
 
 import com.example.demostatemachine.model.data.repositories.redis.MetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("metaWrites")
-public class Write {
+public class Mutations {
 	private final MetaRepository metaRepositoryRepo;
 
 	@Autowired
-	public Write(MetaRepository metaRepositoryRepo) {
+	public Mutations(MetaRepository metaRepositoryRepo) {
 		this.metaRepositoryRepo = metaRepositoryRepo;
 	}
 

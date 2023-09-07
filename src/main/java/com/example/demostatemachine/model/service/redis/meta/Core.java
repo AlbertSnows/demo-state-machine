@@ -1,4 +1,4 @@
-package com.example.demostatemachine.model.mutations.meta;
+package com.example.demostatemachine.model.service.redis.meta;
 
 import com.example.demostatemachine.model.data.repositories.redis.MetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

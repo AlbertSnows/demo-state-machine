@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import com.example.demostatemachine.model.data.repositories.H2.Movie;
+import com.example.demostatemachine.model.service.mutations;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,13 @@ public class Core {
 	private final Movie movieRepo;
 
 	@Qualifier("coreMutations")
-	private final com.example.demostatemachine.model.mutations.Core coreMutations;
+	private final mutations mutationsMutations;
 
 	@Autowired
 	public Core(Movie movie_repo_init
-              , com.example.demostatemachine.model.mutations.Core coreMutations) {
+              , mutations mutationsMutations) {
 		this.movieRepo = movie_repo_init;
-		this.coreMutations = coreMutations;
+		this.mutationsMutations = mutationsMutations;
 	}
 
 	@RequestMapping("/")
@@ -50,7 +51,7 @@ public class Core {
 
 	@RequestMapping("/database/seed")
 	public ResponseEntity<Map<String, Serializable>> seedDatabase() {
-		var seeded = coreMutations.checkAndSeedDatabase();
+		var seeded = mutationsMutations.checkAndSeedDatabase();
 		var success_message = seeded? "Already seeded, not doing it again." : "Request received, I'll begin seeding.";
 		var http_code = seeded? 400 : 200;
 		return ResponseEntity
