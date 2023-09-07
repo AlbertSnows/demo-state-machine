@@ -1,16 +1,16 @@
 package com.example.demostatemachine.model.mutations;
 
-import com.example.demostatemachine.model.data.repositories.Movie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Core {
 	private static final Logger logger = LoggerFactory.getLogger(Core.class);
-	private final com.example.demostatemachine.model.mutations.write.Core coreWriteMutations;
+	private final com.example.demostatemachine.model.mutations.refactorme.Core coreWriteMutations;
+
 
 	@Autowired
-	public Core(com.example.demostatemachine.model.mutations.write.Core coreWriteMutations) {
+	public Core(com.example.demostatemachine.model.mutations.refactorme.Core coreWriteMutations) {
 		this.coreWriteMutations = coreWriteMutations;
 	}
 
