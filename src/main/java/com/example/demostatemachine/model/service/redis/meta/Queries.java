@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 /**
  * This is a KV store of metadata about the application state
  */
-@Service("metaReads")
+@Service("metaQueries")
 public class Queries {
 	private final MetaRepository metaRepo;
-
 	@Autowired
 	public Queries(MetaRepository metaRepo) {
 		this.metaRepo = metaRepo;
@@ -19,7 +18,8 @@ public class Queries {
 		return metaRepo.findById(key).orElse(null);
 	}
 	public Object get(String key) {
-		var myDataOptional = metaRepo.findByKey(key);
-		return myDataOptional.orElse(null);
+		var myDataOptional = metaRepo.findById("seeded");
+		var test = metaRepo.findAll();
+		return myDataOptional;
 	}
 }

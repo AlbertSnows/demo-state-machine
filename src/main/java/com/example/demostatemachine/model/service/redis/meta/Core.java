@@ -2,7 +2,9 @@ package com.example.demostatemachine.model.service.redis.meta;
 
 import com.example.demostatemachine.model.data.repositories.redis.MetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("coreMeta")
 public class Core {
 	private final MetaRepository metaRepo;
 

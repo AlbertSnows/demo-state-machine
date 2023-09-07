@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Map;
 
 import com.example.demostatemachine.model.data.repositories.H2.Movie;
-import com.example.demostatemachine.model.service.mutations;
+import com.example.demostatemachine.model.service.Mutations;
+import com.example.demostatemachine.model.service.Queries;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,14 @@ public class Core {
 	private final Movie movieRepo;
 
 	@Qualifier("coreMutations")
-	private final mutations mutationsMutations;
+	private final Mutations coreMutations;
+
 
 	@Autowired
 	public Core(Movie movie_repo_init
-              , mutations mutationsMutations) {
+              , Mutations coreMutations) {
 		this.movieRepo = movie_repo_init;
-		this.mutationsMutations = mutationsMutations;
+		this.coreMutations = coreMutations;
 	}
 
 	@RequestMapping("/")
@@ -51,12 +53,12 @@ public class Core {
 
 	@RequestMapping("/database/seed")
 	public ResponseEntity<Map<String, Serializable>> seedDatabase() {
-		var seeded = mutationsMutations.checkAndSeedDatabase();
-		var success_message = seeded? "Already seeded, not doing it again." : "Request received, I'll begin seeding.";
-		var http_code = seeded? 400 : 200;
+		coreMutations.checkAndSeedDatabase();
+		var success_message = "Request received. Handling seeding.";
+		var http_code = 200;
 		return ResponseEntity
 						.status(http_code)
-						.body(Map.of("message", success_message, "seeded", seeded));
+						.body(Map.of("message", success_message));
 
 	}
 

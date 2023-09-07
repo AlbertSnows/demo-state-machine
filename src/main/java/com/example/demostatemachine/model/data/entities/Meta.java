@@ -9,9 +9,13 @@ import java.util.Optional;
 public class Meta {
 
 	@Id
-	private String id;
 	private String key;
 	private Object value;
 
 	// Constructors, getters, and setters
+
+	public Meta(String key, Object value) {
+		this.key = key;
+		this.value = value;
+	}
 }
