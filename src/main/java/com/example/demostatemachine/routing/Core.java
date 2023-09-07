@@ -3,7 +3,7 @@ package com.example.demostatemachine.routing;
 import java.io.Serializable;
 import java.util.Map;
 
-import com.example.demostatemachine.model.data.repositories.Movie;
+import com.example.demostatemachine.model.data.repositories.H2.Movie;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

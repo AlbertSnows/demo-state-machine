@@ -1,4 +1,4 @@
-package com.example.demostatemachine.model.data.repositories;
+package com.example.demostatemachine.model.data.repositories.H2;
 
 import org.springframework.data.repository.CrudRepository;
 import com.example.demostatemachine.model.data.entities.Person;

@@ -1,8 +1,8 @@
-package com.example.demostatemachine.model.mutations.write;
+package com.example.demostatemachine.model.mutations.refactorme;
 
-import com.example.demostatemachine.model.data.repositories.Movie;
-import com.example.demostatemachine.model.data.repositories.Person;
-import com.example.demostatemachine.model.data.repositories.RoleInMovie;
+import com.example.demostatemachine.model.data.repositories.H2.Movie;
+import com.example.demostatemachine.model.data.repositories.H2.Person;
+import com.example.demostatemachine.model.data.repositories.H2.RoleInMovie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

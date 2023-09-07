@@ -1,8 +1,5 @@
 package com.example.demostatemachine.model.importing;
 
-import com.example.demostatemachine.model.data.repositories.Movie;
-import com.example.demostatemachine.model.data.repositories.Person;
-import com.example.demostatemachine.model.data.repositories.RoleInMovie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
