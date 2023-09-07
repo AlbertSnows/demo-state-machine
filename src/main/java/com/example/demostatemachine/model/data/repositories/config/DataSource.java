@@ -13,13 +13,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
+@EnableRedisRepositories
 public class DataSource {
 
 	@Primary
 	@Bean(name = "h2DataSourceProperties")
-	@ConfigurationProperties("app.datasource.h2")
+	@ConfigurationProperties("spring.datasource.h2")
 	public DataSourceProperties h2DataSourceProperties() {
 		return new DataSourceProperties();
 	}
@@ -32,18 +37,17 @@ public class DataSource {
 						.build();
 	}
 
-	@Bean(name = "redisDataSourceProperties")
-	@ConfigurationProperties(prefix = "spring.datasource.redis")
-	public DataSourceProperties redisDataSourceProperties() {
-		return new DataSourceProperties();
+	@Bean
+	public RedisConnectionFactory redisConnectionFactory() {
+		return new LettuceConnectionFactory();
 	}
 
-	@Bean(name = "redisConnectionFactory")
-	public RedisConnectionFactory redisConnectionFactory(@Qualifier("redisDataSourceProperties") DataSourceProperties redisProperties) {
-		var url = redisProperties.getUrl();
-//		String redisUrl = new RedisURI("redis://" + url);
-//		redisProperties.parse
-//		return new LettuceConnectionFactory(redisUrl);
-		return new LettuceConnectionFactory();
+	@Bean
+	public RedisTemplate<String, Object> redisTemplate() {
+		RedisTemplate<String, Object> template = new RedisTemplate<>();
+		template.setConnectionFactory(redisConnectionFactory());
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class)); // Replace Object with your entity type
+		return template;
 	}
 }

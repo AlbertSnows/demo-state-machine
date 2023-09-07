@@ -19,6 +19,7 @@ import org.owasp.html.Sanitizers;
 public class Core {
 
 	private final Movie movieRepo;
+
 	private final com.example.demostatemachine.model.mutations.Core coreMutations;
 
 	@Autowired

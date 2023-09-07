@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 // Refer to the meta service repos for more details on what this table is for
 @Repository
-public interface Meta extends CrudRepository<Object, String> {
+public interface Meta extends CrudRepository<com.example.demostatemachine.model.data.entities.Meta, String> {
 }

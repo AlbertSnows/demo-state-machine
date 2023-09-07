@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 //todo: elaborate
-@Service
+@Service("coreMetaMutations")
 public class Core {
 	private final Meta metaRepo;
 
@@ -14,7 +14,7 @@ public class Core {
 		this.metaRepo = metaRepo;
 	}
 
-	public void saveEntity(Meta entity) {
+	public void saveEntity(com.example.demostatemachine.model.data.entities.Meta entity) {
 		metaRepo.save(entity);
 	}
 
