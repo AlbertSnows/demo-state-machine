@@ -34,6 +34,17 @@ public class Core {
 		}
 	}
 
+	public boolean checkAndSeedDatabase() {
+
+		var myDataOptional = metarepo.findByKey("exampleKey");
+		var seeded = true; // redis.get("seeded");
+		if(!seeded) {
+			coreMutations.trySeedingDatabase();
+			// redis.put("seeded", true");
+		}
+		return true;
+	}
+
 
 
 	public void saveEntities(com.example.demostatemachine.model.importing.Core.EntityHolder entity_data) {

@@ -48,13 +48,9 @@ public class Core {
 		return ResponseEntity.ok(payload);
 	}
 
-	@PostMapping("/database/seed")
+	@RequestMapping("/database/seed")
 	public ResponseEntity<Map<String, Serializable>> seedDatabase() {
-		var seeded = false; // redis.get("seeded");
-		if(!seeded) {
-			coreMutations.trySeedingDatabase();
-			// redis.put("seeded", true");
-		}
+		var seeded = coreMutations.checkAndSeedDatabase();
 		var success_message = seeded? "Already seeded, not doing it again." : "Request received, I'll begin seeding.";
 		var http_code = seeded? 400 : 200;
 		return ResponseEntity
