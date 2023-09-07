@@ -20,13 +20,10 @@ public class Core {
 
 	private final Movie movieRepo;
 	private final com.example.demostatemachine.model.mutations.Core coreMutations;
-//	private final ErrorAttributes errorAttributes;
 
 	@Autowired
 	public Core(Movie movie_repo_init
-              , com.example.demostatemachine.model.mutations.Core coreMutations
-//					, ErrorAttributes errorAttributes
-	) {
+              , com.example.demostatemachine.model.mutations.Core coreMutations) {
 		this.movieRepo = movie_repo_init;
 		this.coreMutations = coreMutations;
 //		this.errorAttributes = errorAttributes;
