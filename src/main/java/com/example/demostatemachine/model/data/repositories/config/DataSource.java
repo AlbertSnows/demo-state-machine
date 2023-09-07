@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 
-@Configuration(proxyBeanMethods = false)
+@Configuration
 public class DataSource {
 
 	@Primary

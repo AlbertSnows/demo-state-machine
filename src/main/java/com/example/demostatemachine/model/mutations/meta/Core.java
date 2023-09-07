@@ -4,7 +4,8 @@ import com.example.demostatemachine.model.data.repositories.redis.Meta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("metaService")
+//todo: elaborate
+@Service
 public class Core {
 	private final Meta metaRepo;
 
