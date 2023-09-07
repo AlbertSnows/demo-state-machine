@@ -7,6 +7,7 @@ import com.example.demostatemachine.model.data.repositories.H2.Movie;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class Core {
 
 	private final Movie movieRepo;
 
+	@Qualifier("coreMutations")
 	private final com.example.demostatemachine.model.mutations.Core coreMutations;
 
 	@Autowired
@@ -27,7 +29,6 @@ public class Core {
               , com.example.demostatemachine.model.mutations.Core coreMutations) {
 		this.movieRepo = movie_repo_init;
 		this.coreMutations = coreMutations;
-//		this.errorAttributes = errorAttributes;
 	}
 
 	@RequestMapping("/")
@@ -48,8 +49,18 @@ public class Core {
 	}
 
 	@PostMapping("/database/seed")
-	public void seedDatabase() {
-		coreMutations.trySeedingDatabase();
+	public ResponseEntity<Map<String, Serializable>> seedDatabase() {
+		var seeded = false; // redis.get("seeded");
+		if(!seeded) {
+			coreMutations.trySeedingDatabase();
+			// redis.put("seeded", true");
+		}
+		var success_message = seeded? "Already seeded, not doing it again." : "Request received, I'll begin seeding.";
+		var http_code = seeded? 400 : 200;
+		return ResponseEntity
+						.status(http_code)
+						.body(Map.of("message", success_message, "seeded", seeded));
+
 	}
 
 	@PostMapping("/title")
