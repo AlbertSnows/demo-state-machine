@@ -7,8 +7,8 @@ import com.opencsv.CSVReader;
 import io.vavr.collection.List;
 import io.vavr.control.Try;
 
-public class file {
-	private file() {
+public class File {
+	private File() {
 		throw new IllegalStateException("Utility class");
 	}
 

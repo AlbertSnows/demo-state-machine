@@ -3,7 +3,7 @@ package com.example.demostatemachine.model.importing;
 import com.example.demostatemachine.model.data.entities.Movie;
 import com.example.demostatemachine.model.data.entities.Person;
 import com.example.demostatemachine.model.data.entities.RoleInMovie;
-import com.example.demostatemachine.utility.file;
+import com.example.demostatemachine.utility.File;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.control.Try;
@@ -27,7 +27,7 @@ public class Core {
 	}
 
 	public static Try<List<String[]>> import_csv_data(Path csv_path) {
-		return file.load_csv_file(csv_path);
+		return File.load_csv_file(csv_path);
 	}
 
 	public static HashMap<String, Try<List<String[]>>> import_csv_files(@NotNull HashMap<String, Path> csv_path_map) {

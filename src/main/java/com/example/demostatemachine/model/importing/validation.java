@@ -4,6 +4,7 @@ import io.vavr.Function1;
 import io.vavr.collection.*;
 import io.vavr.control.Try;
 import io.vavr.control.Validation;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.NoSuchFileException;
 
@@ -20,7 +21,8 @@ public class validation {
 		Case($(), "Uncaptured error. Cause: " + ex.getCause() + " | Message: " + ex.getMessage())));
 	}
 
-	public static Validation<HashMap<String, String>, HashMap<String, List<String[]>>> validate_if_csv_files_were_read_correctly(HashMap<String, Try<List<String[]>>> unvalidated_csv_files) {
+	public static Validation<HashMap<String, String>, HashMap<String, List<String[]>>>
+	validate_if_csv_files_were_read_correctly(@NotNull HashMap<String, Try<List<String[]>>> unvalidated_csv_files) {
 		HashMap<String, Validation<String, List<String[]>>> validated_csv_map = HashMap.empty();
 		var validated_csv_files = unvalidated_csv_files.foldLeft(
 						validated_csv_map,
