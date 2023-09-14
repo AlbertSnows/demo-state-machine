@@ -11,7 +11,9 @@ public class Person {
 	private Long id;
 
 	@Column(nullable = false, unique = false)
-	private final String name;
+	private String name;
+
+	public Person() {}
 
 	public Person(String name) {
 		this.name = name;

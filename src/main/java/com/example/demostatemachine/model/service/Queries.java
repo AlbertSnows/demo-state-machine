@@ -1,5 +1,6 @@
 package com.example.demostatemachine.model.service;
 
+import com.example.demostatemachine.model.service.redis.meta.MetaQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -8,13 +9,13 @@ import org.springframework.stereotype.Service;
 public class Queries {
 
 	@Qualifier("metaQueries")
-	private final com.example.demostatemachine.model.service.redis.meta.Queries metaQueries;
+	private final MetaQueries metaQueries;
 
 	@Autowired
-	public Queries(com.example.demostatemachine.model.service.redis.meta.Queries metaQueries) {
+	public Queries(MetaQueries metaQueries) {
 		this.metaQueries = metaQueries;
 	}
 	public boolean isMetaSeeded() {
-		return metaQueries.get("seeded") != null;
+		return metaQueries.get("seeded"); // != null;
 	}
 }

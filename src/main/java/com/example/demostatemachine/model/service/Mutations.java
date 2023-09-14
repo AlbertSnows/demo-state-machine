@@ -1,7 +1,7 @@
 package com.example.demostatemachine.model.service;
 
 import com.example.demostatemachine.model.data.entities.Meta;
-import com.example.demostatemachine.model.service.redis.meta.Queries;
+import com.example.demostatemachine.model.service.redis.meta.MetaQueries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 public class Mutations {
 	private static final Logger logger = LoggerFactory.getLogger(Mutations.class);
 
-	@Qualifier("metaQueries")
-	private final Queries metaQueries;
+	private final MetaQueries metaQueries;
 
 	@Qualifier("h2Mutations")
 	private final com.example.demostatemachine.model.service.H2.Mutations h2Mutations;
@@ -24,7 +23,7 @@ public class Mutations {
 
 	@Autowired
 	public Mutations(
-					Queries metaQueries
+					MetaQueries metaQueries
 					, com.example.demostatemachine.model.service.H2.Mutations h2Mutations
 					, com.example.demostatemachine.model.service.redis.meta.Mutations metaMutations) {
 		this.metaQueries = metaQueries;
@@ -48,10 +47,14 @@ public class Mutations {
 	@Async
 	public void checkAndSeedDatabase() {
 		var thing =  metaQueries.get("seeded");
-		var foo = metaMutations.put(new Meta("seeded", true));
+		if(!thing) {
+			var foo = metaMutations.put(new Meta("seeded", true));
+			var boo = metaMutations.put(new Meta("this-should-not-persist", true));
+		}
+
 		var thing2 =  metaQueries.get("seeded");
 
-		var seeded = thing != null;
+//		var seeded = thing != null;
 		if(false) {
 			trySeedingDatabase();
 		}

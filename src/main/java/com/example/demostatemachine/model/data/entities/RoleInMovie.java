@@ -12,14 +12,16 @@ public class RoleInMovie {
 
 	@ManyToOne
 	@JoinColumn(name = "people_id", nullable = false)
-	private final Person person;
+	private Person person;
 
 	@ManyToOne
 	@JoinColumn(name = "movie_id", nullable = false)
-	private final Movie movie;
+	private Movie movie;
 
 	@Column(nullable = false)
-	private final String role;
+	private String role;
+
+	public RoleInMovie() {}
 
 	public RoleInMovie(Person person, Movie movie, String role) {
 		this.person = person;

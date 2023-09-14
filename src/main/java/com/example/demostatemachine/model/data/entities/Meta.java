@@ -10,7 +10,7 @@ public class Meta {
 
 	@Id
 	private String key;
-	private Object value;
+	public Object value;
 
 	// Constructors, getters, and setters
 
