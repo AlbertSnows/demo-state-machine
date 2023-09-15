@@ -1,8 +1,21 @@
+# If you change the code in a manner that docker doesn't pick up on
+# You'll need to run docker compose build
 version: '3'
 services:
-  myapp:
+  spring-app:
+    container_name: spring-app-container
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    depends_on:
+      - redis-db
+
+  redis-db:
+    container_name: redis-db-container
+    image: redis:latest
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"

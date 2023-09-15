@@ -48,14 +48,18 @@ public class Mutations {
 	public void checkAndSeedDatabase() {
 		var thing =  metaQueries.get("seeded");
 		if(!thing) {
+			logger.info("Seeding db...");
 			var foo = metaMutations.put(new Meta("seeded", true));
 			var boo = metaMutations.put(new Meta("this-should-not-persist", true));
+		} else {
+			logger.info("Already seeded!");
 		}
 
 		var thing2 =  metaQueries.get("seeded");
 
 //		var seeded = thing != null;
 		if(false) {
+			logger.info("Actually seeding db...");
 			trySeedingDatabase();
 		}
 	}
