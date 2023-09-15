@@ -59,7 +59,7 @@ public class Redis {
 	public LettuceConnectionFactory reactiveRedisConnectionFactory(
 //					RedisConfiguration defaultRedisConfig
 	) {
-		var x = new RedisStandaloneConfiguration("redis-db-container", 6379);
+		var x = new RedisStandaloneConfiguration(host, 6379);
 		return new LettuceConnectionFactory(x);
 //		LettuceClientConfiguration clientConfig =
 //						LettuceClientConfiguration.builder()
@@ -80,7 +80,7 @@ public class Redis {
 //	}
 	@PreDestroy
 	public void onShutdown() {
-		logger.info("Flushing redis...");
+//		logger.info("Flushing redis...");
 //		redisConnectionFactory.getConnection().serverCommands().flushDb();
 	}
 }
